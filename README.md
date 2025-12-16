@@ -11,7 +11,7 @@ The framework integrates three distinct data modalities to improve prognostic ac
 
 * **OS:** Linux (Tested on Ubuntu 20.04/22.04)
 * **GPU:** NVIDIA GPU with CUDA support (Tested on **NVIDIA RTX 4090**)
-* **Python:** 3.10
+* **Python:** 3.11
 
 ## 🛠️ Installation
 
