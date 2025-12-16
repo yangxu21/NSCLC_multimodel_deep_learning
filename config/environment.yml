@@ -1,0 +1,32 @@
+name: nsclc_dl
+channels:
+  - pytorch
+  - nvidia
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - openslide
+  - hdf5
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+
+  - pip:
+    - numpy
+    - pandas
+    - scipy
+    - scikit-learn
+    - h5py
+    - tqdm
+    - torchmetrics
+    - lightning-utilities
+    - torchsurv
+    - openslide-python
+    - pillow
+    - opencv-python-headless
+    - matplotlib
+    - seaborn

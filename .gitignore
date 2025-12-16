@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+
+# Data & Features
+data/
+processed_data/
+
+# Checkpoints & Models
+checkpoints/
+*.pth
+*.pt
+*.ckpt
+
+# Logs and Outputs
+*.log
+nohup.out
+runs/
+wandb/
+
+# IDE & System
+.idea/
+.vscode/
+.DS_Store
