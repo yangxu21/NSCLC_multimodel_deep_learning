@@ -91,7 +91,8 @@ def train(args):
         if epoch % 100 == 0: 
             print(f"Ep {epoch} Val Loss: {vl:.4f}")
         stop(vl, model)
-        if stop.early_stop: break
+        if stop.early_stop: 
+            break
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

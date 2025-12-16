@@ -65,18 +65,18 @@ class MMDL_Fusion(nn.Module):
         super(MMDL_Fusion, self).__init__()
         
         # 1. WSI Branch
-        self.wsi_net = FeatureEncoder(input_dim=512, sizes=[256, 128], block_type=block_type)
+        self.wsi_net = FeatureEncoder(input_dim=512, sizes=[256, 32], block_type=block_type)
         # 2. NGS & Clinical Branches (Input dims based on dataset)
-        self.cna_amp  = FeatureEncoder(100, [256, 128], block_type='SNN')
-        self.cna_del  = FeatureEncoder(100, [256, 128], block_type='SNN')
-        self.mut_data = FeatureEncoder(100, [256, 128], block_type='MLP')
-        self.amp_set  = FeatureEncoder(100, [256, 128], block_type='MLP')
-        self.del_set  = FeatureEncoder(100, [256, 128], block_type='MLP')
-        self.mut_set  = FeatureEncoder(100, [256, 128], block_type='MLP')
+        self.cna_amp  = FeatureEncoder(100, [256, 32], block_type='SNN')
+        self.cna_del  = FeatureEncoder(100, [256, 32], block_type='SNN')
+        self.mut_data = FeatureEncoder(100, [256, 32], block_type='MLP')
+        self.amp_set  = FeatureEncoder(100, [256, 32], block_type='MLP')
+        self.del_set  = FeatureEncoder(100, [256, 32], block_type='MLP')
+        self.mut_set  = FeatureEncoder(100, [256, 32], block_type='MLP')
         self.clinical = FeatureEncoder(5, [64, 32], block_type='MLP')
 
         # 3. Fusion Layer
-        fusion_in = (128 * 7) + 32
+        fusion_in = 32 * 8
         
         self.fusion = nn.Sequential(
             MLP_block(fusion_in, 256),

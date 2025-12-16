@@ -1,25 +1,25 @@
 #!/bin/bash
 
-# -----------------------------------------------------------------
+# =================================================================
 # CONFIGURATION
-# -----------------------------------------------------------------
+# =================================================================
 
-# 1. Data Paths (CSVs must be pre-merged with all columns)
+# Data Paths (CSVs must be pre-merged with all columns)
 TRAIN_CSV="data/mmdl_train.csv"
 VAL_CSV="data/mmdl_val.csv"
 
-# 2. Feature Directories
+# Feature Directories
 # NOTE: These must be 512-dim patient-level vectors (1 per slide/patient)
 # stored as .pt files (e.g., 'SLIDE_123.pt')
 WSI_FEATS_512="processed_data/wsi_patient_vectors_512"
 
-# 3. Output Directories
+# Output Directories
 SAVE_DIR="checkpoints/mmdl"
 mkdir -p $SAVE_DIR
 
-# -----------------------------------------------------------------
+# =================================================================
 # STEP 1: Train Individual Modality Models (Cox)
-# -----------------------------------------------------------------
+# =================================================================
 echo "----------------------------------------------------------------"
 echo "STEP 1: Training Individual Cox Models for 7 Modalities..."
 echo "----------------------------------------------------------------"
@@ -47,9 +47,9 @@ for MOD in "${MODALITIES[@]}"; do
         --batch_size 64
 done
 
-# -----------------------------------------------------------------
+# =================================================================
 # STEP 2: Train MMDL Fusion Model (WSI + NGS + Clinical)
-# -----------------------------------------------------------------
+# =================================================================
 echo "----------------------------------------------------------------"
 echo "STEP 2: Training Multi-Modal Fusion Model..."
 echo "----------------------------------------------------------------"

@@ -1,8 +1,5 @@
 """
 Step 1: Resolution-Based WSI Resizing
--------------------------------------
-Resizes Whole Slide Images (SVS/TIF) to a specific target resolution (default 0.55 um/px).
-Uses a 4x4 grid chunking strategy to manage memory usage during resizing.
 """
 
 import os
@@ -20,7 +17,8 @@ def resize_wsi(image_path, output_folder, target_um=0.55, output_format='jpg'):
     image_name = os.path.splitext(filename)[0]
     output_path = os.path.join(output_folder, f"{image_name}.{output_format}")
 
-    if os.path.exists(output_path): return
+    if os.path.exists(output_path): 
+        return
 
     try:
         slide = openslide.OpenSlide(image_path)
@@ -72,7 +70,7 @@ def resize_wsi(image_path, output_folder, target_um=0.55, output_format='jpg'):
         print(f"Save failed: {e}")
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Step 1: WSI Resizing based on Target Microns per Pixel')
     parser.add_argument('--source', required=True)
     parser.add_argument('--save_dir', required=True)
     parser.add_argument('--target_um', type=float, default=0.55)
@@ -80,5 +78,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     os.makedirs(args.save_dir, exist_ok=True)
     
-    files = sorted([os.path.join(args.source, f) for f in os.listdir(args.source) if f.endswith(('.svs', '.sv', '.tif', '.ndpi'))])
-    for f in tqdm(files): resize_wsi(f, args.save_dir, args.target_um, args.format)
+    files = sorted([os.path.join(args.source, f) for f in os.listdir(args.source) if f.endswith(('.svs', '.sv'))])
+    for f in tqdm(files): 
+        resize_wsi(f, args.save_dir, args.target_um, args.format)

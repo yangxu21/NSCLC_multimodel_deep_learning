@@ -96,10 +96,12 @@ def train(args):
         thresh = 1024 * (min(epoch, 7) * 2 + 1)
         
         for i, batch in enumerate(tqdm(loader)):
-            if batch is None: continue
+            if batch is None: 
+                continue
             data, l, c, n = batch
             
-            if n.item() < thresh: continue
+            if n.item() < thresh: 
+                continue
             
             h, _, _ = model(data.cuda())
             loss = criterion(h, l.cuda(), c.cuda()) / args.gc

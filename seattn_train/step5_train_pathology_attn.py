@@ -41,7 +41,8 @@ def train(args):
         for i, (d, l) in enumerate(DataLoader(FeatDS(df_tr, args.feature_dir), batch_size=1, shuffle=True)):
             limit = int(1024 * (1.5 ** ((epoch % 10) + 1)))
             d = d.squeeze(0)
-            if d.size(0) > limit: d = d[torch.randperm(d.size(0))[:limit]]
+            if d.size(0) > limit: 
+                d = d[torch.randperm(d.size(0))[:limit]]
 
             loss = criterion(model(d.cuda()).view(-1), l.cuda().view(-1)) / args.gc
             loss.backward()

@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# Configuration
+# =================================================================
+# CONFIGURATION
+# =================================================================
+# Input Data
 CSV_PATH="data/survival.csv"
 TRAIN_CSV="data/survival_train.csv"
 VAL_CSV="data/survival_val.csv"
@@ -18,10 +21,12 @@ GRAD_ACCUMULATION=4
 mkdir -p $FEATURE_DIR
 mkdir -p $SAVE_DIR
 
-# -----------------------------------------------------------------
+# =================================================================
 # STEP 6: Fine-tune CNN (Survival)
-# -----------------------------------------------------------------
+# =================================================================
+echo "----------------------------------------------------------------"
 echo "STEP 6: Fine-tuning CNN..."
+echo "----------------------------------------------------------------"
 python seattn_train/step6_train_survival_cnn.py \
     --csv_path $CSV_PATH \
     --patch_dir $PATCH_DIR \
@@ -30,10 +35,12 @@ python seattn_train/step6_train_survival_cnn.py \
     --save_dir $SAVE_DIR \
     --gc $GRAD_ACCUMULATION
 
-# -----------------------------------------------------------------
+# =================================================================
 # STEP 4: Extract Features (with Survival-Tuned CNN)
-# -----------------------------------------------------------------
+# =================================================================
+echo "----------------------------------------------------------------"
 echo "STEP 4: Extracting Features..."
+echo "----------------------------------------------------------------"
 python seattn_train/step4_extract_features.py \
     --csv_path $CSV_PATH \
     --patch_dir $PATCH_DIR \
@@ -41,10 +48,12 @@ python seattn_train/step4_extract_features.py \
     --model_path "$SAVE_DIR/phase4_cnn.pth" \
     --feature_dir $FEATURE_DIR
 
-# -----------------------------------------------------------------
+# =================================================================
 # STEP 7: Train Attention (Discrete Only)
-# -----------------------------------------------------------------
+# =================================================================
+echo "----------------------------------------------------------------"
 echo "STEP 7: Training Attention (Discrete Survival)..."
+echo "----------------------------------------------------------------"
 python seattn_train/step7_train_survival_attn.py \
     --train_csv $TRAIN_CSV \
     --val_csv $VAL_CSV \
@@ -53,10 +62,12 @@ python seattn_train/step7_train_survival_attn.py \
     --epochs 50 \
     --gc $GRAD_ACCUMULATION
 
-# -----------------------------------------------------------------
+# =================================================================
 # STEP 8: Fine-tune MLP (Cox) - Optional but Recommended
-# -----------------------------------------------------------------
+# =================================================================
+echo "----------------------------------------------------------------"
 echo "STEP 8: Fine-tuning MLP with Cox Loss..."
+echo "----------------------------------------------------------------"
 python seattn_train/step8_train_survival_mlp.py \
     --train_csv $TRAIN_CSV \
     --val_csv $VAL_CSV \
@@ -64,4 +75,6 @@ python seattn_train/step8_train_survival_mlp.py \
     --phase6_model "$SAVE_DIR/phase6_discrete.pth" \
     --save_dir $SAVE_DIR
 
+echo "----------------------------------------------------------------"
 echo "Survival Pipeline Complete!"
+echo "----------------------------------------------------------------"

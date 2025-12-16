@@ -89,10 +89,12 @@ def train(args):
         threshold = 192 * (min(epoch, 29) * 2 + 1)
         
         for i, batch in enumerate(tqdm(loader, desc=f"Epoch {epoch+1}")):
-            if batch is None: continue
+            if batch is None: 
+                continue
             data, label, n = batch
             
-            if n.item() < threshold: continue
+            if n.item() < threshold: 
+                continue
             
             loss = criterion(model(data.cuda()).view(-1), label.cuda().view(-1)) / args.gc
             loss.backward()

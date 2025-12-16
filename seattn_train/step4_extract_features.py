@@ -73,7 +73,8 @@ def extract(args):
             
         try:
             ds = InferenceDataset(h5, img_path, transform)
-            if len(ds) == 0: continue
+            if len(ds) == 0: 
+                continue
             
             dl = DataLoader(ds, batch_size=128, num_workers=4, shuffle=False)
             feats = []

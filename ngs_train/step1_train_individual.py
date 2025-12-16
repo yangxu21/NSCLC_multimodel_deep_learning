@@ -72,7 +72,7 @@ def train(args):
     block_type = 'SNN' if 'cna' in args.modality_name.lower() else 'MLP'
     
     # Smaller network for Clinical data (only 5 features)
-    sizes = [64, 32] if 'clinical' in args.modality_name.lower() else [256, 128]
+    sizes = [64, 32] if 'clinical' in args.modality_name.lower() else [256, 32]
     
     model = IndividualCoxModel(input_dim=input_dim, sizes=sizes, block_type=block_type).cuda()
     
@@ -85,7 +85,7 @@ def train(args):
 
     # 3. Training Loop
     print("Starting Training...")
-    for epoch in range(1000): # Up to 1000 epochs
+    for epoch in range(1000): 
         model.train()
         train_loss = 0.
         
